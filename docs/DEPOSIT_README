@@ -1,0 +1,13 @@
+Deposits work a little differently from Queries and Subscriptions in that you don't need to supply the actual JSON
+deposit messages that are sent to the server.  The application will take care of this for you.  All deposits are controlled 
+by the values set in the application configuration file whconfig.json (see CONFIG_README).
+
+Files placed in the configurable "depositFileDir" are read by this application and sent to the system identified
+by "systemDepositName" to be deposited into the Warehouse.  
+
+The fields in whconfig.json that control Deposits are below.  Please see CONFIG_README for an explanation of these fields.
+
+    "systemDepositName": "SDC 2.3",
+    "encodeType": "hex",
+    "depositFileDir": "deposits",
+    "depositDelay": 200 

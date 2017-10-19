@@ -1,0 +1,50 @@
+This application reads files from the requests directory and sends them to the Warehouse to be executed.
+Files that start with the "SUBSCRIBE:" tag are treated as subscription requests - a long running request for the
+streaming of live Warehouse data. An example SUBSCRIBE file is given below with a description for each field.
+
+SUBSCRIBE:{
+    "systemSubName": "SDC 2.3",
+    "dialogID": 154,
+    "vsmType": 1,
+    "nwLat": 42.351440029174164,
+    "nwLon": -83.13457489013672,
+    "seLat": 42.31184652369511,
+    "seLon": -82.97218322753906,
+    "resultEncoding": "hex",
+    "messageDelay": 1000
+} 
+
+Field Descriptions:
+
+systemSubName		The name of the Warehouse system you would like to subscribe to.
+dialogID			A SemiDialogID from the SEMI.asn file indicating the type of message requested.  The application
+					currently supports dialogIDs 154 (vehSitDataMessage), 156 (travelerInfomation), 162 (intersectionSitData), or -1 for all types
+vsmType				The VsmTyp if a dialogID of 154 (vehSitDataMessage) is selected.  This vsmType is the Integer value of the SEMI Octet string 
+nwLat				The latitude value for the northwest corner of the bounding box for geo-spatial subscriptions
+nwLon				The longitude value for the northwest corner of the bounding box for geo-spatial subscriptions
+seLat				The latitude value for the southeast corner of the bounding box for geo-spatial subscriptions
+seLon				The longitude value for the southeast corner of the bounding box for geo-spatial subscriptions
+resultEncoding		The encoding type for the resulting records.  Valid values are "hex", "base64", and "full".  "hex" returns the
+					message as a hex encoded string.  "base64" encodes the hex message using base64 encoding.  "full" returns a json
+					record of parsed information used for plotting on GUI
+messageDelay		The amount of time in milliseconds the server will use to space each message before streaming them
+					to the client.  Can be used to help "smooth" out the message subscription stream.  The default is 0 
+					meaning the server will send out messages as quickly as it receives them (messages may be received in 
+					batches).  For any positive value up to 10000 the server will space messages out by that time.  For a 
+					negative value the server will attempt to send messages out at the exact same interval that they were
+					originally received by looking at the timestamp in each message.  Note that the server has an upper bounds
+					as to how many messages that it will buffer up for each client connection.  A high messageDelay value and high
+					data rate can lead to a case where the buffer limit is exceeded. At that point the server will temporarily 
+					disable the messageDelay to flush the buffer.  After the buffer has been flushed the messageDelay will be
+					reset to its original value.	
+
+
+Field				Required	Default Value
+systemSubName			Y		""
+dialogID				Y		""			
+nwLat					N		""
+nwLon					N		""
+seLat					N		""
+seLon					N		""
+resultEncoding			N		"hex"
+messageDelay			N		0

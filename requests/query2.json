@@ -1,0 +1,7 @@
+QUERY:{
+    "systemQueryName": "SDPC 2.3",
+    "dialogID": 162,
+    "skip": 0,
+    "limit": 10,
+    "resultEncoding": "full"
+} 

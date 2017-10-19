@@ -1,0 +1,63 @@
+This application reads files from the requests directory and sends them to the Warehouse to be executed.
+Files that start with the "QUERY:" tag are treated as query requests - one time data request from the Warehouse's
+databases. An example QUERY file is given below with a description for each field.
+
+QUERY:{
+    "systemQueryName": "SDPC 2.3",
+    "dialogID": 154,
+    "startDate": "2014-06-25T17:05:36",
+    "startDateOperator": "GTE",
+    "endDate": "2014-09-26T17:05:36",
+    "endDateOperator": "LTE",
+    "nwLat": 42.398998,
+    "nwLon": -83.194134,
+    "seLat": 42.306898,
+    "seLon": -82.953121,
+    "orderByField": "createdAt",
+    "orderByOrder": -1,
+    "skip": 0,
+    "limit": 10,
+    "resultEncoding": "hex"
+}
+
+Field Descriptions:
+
+systemQueryName		The name of the Warehouse system you would like to query.
+dialogID			A SemiDialogID from the SEMI.asn file indicating the type of message requested.  The application
+					currently supports dialogIDs 154 (vehSitDataMessage), 156 (travelerInfomation), and 162 (intersectionSitData)
+startDate			A starting date field for date range queries.  Format is yyyy-MM-dd'T'HH:mm:ss
+startDateOperator	The operator applied to startDate when startDate is included.  Valid values are "GT", "GTE", "LT", "LTE" 
+					(greater than, greater than or equal, less than, less than or equal respectively)  
+endDate				A ending date field for date range queries.  Format is yyyy-MM-dd'T'HH:mm:ss
+endDateOperator		The operator applied to endDate when endDate is included.  Valid values are "GT", "GTE", "LT", "LTE" 
+					(greater than, greater than or equal, less than, less than or equal respectively)
+nwLat				The latitude value for the northwest corner of the bounding box for geo-spatial queries
+nwLon				The longitude value for the northwest corner of the bounding box for geo-spatial queries
+seLat				The latitude value for the southeast corner of the bounding box for geo-spatial queries
+seLon				The longitude value for the southeast corner of the bounding box for geo-spatial queries
+orderByField		The name of the field to order your results by.  To see all available field names run a query with the
+					resultEncoding option set to "full"
+orderByOrder		How to order the results either 1 (Ascending) or -1 (Descending)
+skip				The number of records to initially skip in the result set.
+limit				The number of records to limit the result set by.
+resultEncoding		The encoding type for the resulting records.  Valid values are "hex", "base64", and "full".  "hex" returns the
+					message as a hex encoded string.  "base64" encodes the hex message using base64 encoding.  "full" returns the
+					entire record from the warehouse including all meta data and the base64 encoded message. 
+
+
+Field				Required	Default Value
+systemQueryName			Y		""
+dialogID				Y		""			
+startDate				N		""
+startDateOperator		N		"GTE"
+endDate					N		""
+endDateOperator			N		"LTE"
+nwLat					N		""
+nwLon					N		""
+seLat					N		""
+seLon					N		""
+orderByField			N		""
+orderByOrder			N		-1
+skip					N		0
+limit					N		0
+resultEncoding			N		"hex"

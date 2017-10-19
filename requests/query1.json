@@ -1,0 +1,11 @@
+QUERY:{
+    "systemQueryName": "SDPC 2.3",
+    "dialogID": 154,
+    "nwLat": 42.351440029174164,
+    "nwLon": -83.13457489013672,
+    "seLat": 42.31184652369511,
+    "seLon": -82.97218322753906,
+    "skip": 0,
+    "limit": 100,
+    "resultEncoding": "hex"
+}
